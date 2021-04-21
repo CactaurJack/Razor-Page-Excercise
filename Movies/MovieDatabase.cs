@@ -30,5 +30,27 @@ namespace Movies
         /// Gets all the movies in the database
         /// </summary>
         public static IEnumerable<Movie> All { get { return movies; } }
+
+        public static IEnumerable<Movie> Search(string terms)
+        {
+            List<Movie> results = new List<Movie>();
+
+            //null check
+            if(terms == null)
+            {
+                return All;
+            }
+
+            foreach(Movie movie in All)
+            {
+                //Add the movie is the title is a match
+                if (movie.Title != null && movie.Title.Contains(terms, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    results.Add(movie);
+                }
+            }
+
+            return results;
+        }
     }
 }
