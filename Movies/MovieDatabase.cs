@@ -97,5 +97,84 @@ namespace Movies
 
         private static string[] genres;
         public static string[] Genres => genres;
+
+        /// <summary>
+        /// Filters the provided collection of movies
+        /// to those with IMDB ratings falling within
+        /// the specified range
+        /// </summary>
+        /// <param name="movies">The collection of movies to filter</param>
+        /// <param name="min">The minimum range value</param>
+        /// <param name="max">The maximum range value</param>
+        /// <returns>The filtered movie collection</returns>
+        public static IEnumerable<Movie> FilterByIMDBRating(IEnumerable<Movie> movies, double? min, double? max)
+        {
+            if (min == null && max == null) return movies;
+
+            var results = new List<Movie>();
+
+            if(min == null)
+            {
+                foreach(Movie movie in movies)
+                {
+                    if (movie.IMDBRating <= max) results.Add(movie);
+                }
+                return results;
+            }
+
+            if(max == null)
+            {
+                foreach(Movie movie in movies)
+                {
+                    if (movie.IMDBRating >= min) results.Add(movie);
+                }
+                return results;
+            }
+
+            foreach(Movie movie in movies)
+            {
+                if(movie.IMDBRating >= min && movie.IMDBRating <= max)
+                {
+                    results.Add(movie);
+                }
+            }
+            return results;
+        }
+
+        public static IEnumerable<Movie> FilterByRottenTomatoesRating(IEnumerable<Movie> movies, int? min, int? max)
+        {
+            if (min == null && max == null) return movies;
+
+            var results = new List<Movie>();
+
+            if (min == null)
+            {
+                foreach (Movie movie in movies)
+                {
+                    if (movie.RottenTomatoesRating <= max) results.Add(movie);
+                }
+                return results;
+            }
+
+            if (max == null)
+            {
+                foreach (Movie movie in movies)
+                {
+                    if (movie.RottenTomatoesRating >= min) results.Add(movie);
+                }
+                return results;
+            }
+
+            foreach (Movie movie in movies)
+            {
+                if (movie.RottenTomatoesRating >= min && movie.RottenTomatoesRating <= max)
+                {
+                    results.Add(movie);
+                }
+            }
+            return results;
+        }
+
+
     }
 }
